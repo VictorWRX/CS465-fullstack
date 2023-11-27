@@ -3,6 +3,15 @@ const host = process.env.DB_HOST || '127.0.0.1';
 let dbURL = 'mongodb://127.0.0.1:27017/travlr';
 const readLine = require('readline');
 
+mongoose.set('useUnifiedTopology', true);
+
+const connect = () => {
+  setTimeout(() => mongoose.connect(dbURL, {
+    useNewURLParser: true,
+    useCreateIndex: true
+  }), 1000);
+}
+
 
 mongoose.connection.on('connected', () => {
   console.log('connected');
@@ -50,6 +59,6 @@ process.on('SIGTERM', () => {
   });
 });
 
-//connect();
+connect();
 
 require('./travlr');
